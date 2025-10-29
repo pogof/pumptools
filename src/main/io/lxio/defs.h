@@ -2,7 +2,8 @@
 #define LXIO_DRV_DEFS_H
 
 #define LXIO_VID 0x0D2F
-#define LXIO_PID 0x1020
+#define LXIO_PID_1020 0x1020
+#define LXIO_PID_1040 0x1040
 
 #define LXIO_DRV_USB_REQ_TIMEOUT 10000
 

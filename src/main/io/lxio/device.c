@@ -16,7 +16,11 @@ bool lxio_drv_device_open(void)
     return true;
   }
 
-  lxio_drv_device_handle = io_usb_open(LXIO_VID, LXIO_PID, 1, 0);
+  lxio_drv_device_handle = io_usb_open(LXIO_VID, LXIO_PID_1020, 1, 0);
+  
+  if (!lxio_drv_device_handle) {
+    lxio_drv_device_handle = io_usb_open(LXIO_VID, LXIO_PID_1040, 1, 0);
+  }
 
   return lxio_drv_device_handle;
 }
