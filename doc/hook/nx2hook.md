@@ -1,6 +1,6 @@
 # nx2hook: NX2
 This readme covers any matters that are relevant for this hook, only. Anything that applies to **all** hooks is covered
-in a [main hook readme file](../hook.md) including general data setup and a quick start guide.
+in a [main hook readme file](./hook.md) including general data setup and a quick start guide.
 
 ## Additional notable features
 * Removed USB flash drive vendor lock, i.e. use _ANY_ USB flash drive to store game profiles
@@ -10,7 +10,7 @@ in a [main hook readme file](../hook.md) including general data setup and a quic
 All known versions supported.
 
 ## Dependencies
-Make sure to read the different methods of dependency resolution available in the [main hook readme file](../hook.md),
+Make sure to read the different methods of dependency resolution available in the [main hook readme file](./hook.md),
 first.
 
 Note: Game is 32-bit, so you need to install the 32-bit versions of the dependencies!
@@ -50,7 +50,7 @@ Further indirect dependencies are needed but should be taken care of automatical
 install the direct dependencies.
 
 ## Data setup
-In additional to the [general information applying to **all** hooks](../hook.md#data-setup), this game requires all
+In additional to the [general information applying to **all** hooks](./hook.md#data-setup), this game requires all
 files and folders from the original `game` folder to be in **UPPERCASE** on a case-sensitive file system with the
 exception of `*.txt` and `*.ttf` files in the root of game. Further game asset files and folders from cramfs need to be
 copied to the `game` directory. `nx.ttf`, `nxcn.ttf`, `nxpt.ttf`, `nxtw.ttf` and `mission.txt` must be **lowercase** but
@@ -114,7 +114,7 @@ Failed, http code 0, retrying (0)...
 
 ## Troubleshooting and FAQ
 Make sure to also check the
-[troubleshooting and FAQ section of the main hook readme](../hook.md#troubleshooting-and-faq). This covers various
+[troubleshooting and FAQ section of the main hook readme](./hook.md#troubleshooting-and-faq). This covers various
 things that apply to **all** hooks. The following sub-sections apply mainly to this hook.
 
 ### How do I unlock 'Tell Me' on the non korean version?

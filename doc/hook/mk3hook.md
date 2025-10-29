@@ -1,6 +1,6 @@
 # mk3hook: 1st to Prex 3/Premiere 3 Linux ports
 This readme covers any matters that are relevant for this hook, only. Anything that applies to **all** hooks is covered
-in a [main hook readme file](../hook.md) including general data setup and a quick start guide.
+in a [main hook readme file](./hook.md) including general data setup and a quick start guide.
 
 First and foremost, the MK3 Linux ports are runnable without this hook as well. The ports were created from the original
 fully disassembled DOS binaries and reassembled for 32-bit Linux. To make the games run on modern non-MK3 hardware,
@@ -26,7 +26,7 @@ some more quality of life features.
 Basically, "all" versions are supported considering there was only one Linux binary per game released so far.
 
 ## Quick start: how to run (official release), additional steps
-Start with the quick start guide from the [main hook readme](../hook.md#quick-start-how-to-run-official-release) and
+Start with the quick start guide from the [main hook readme](./hook.md#quick-start-how-to-run-official-release) and
 add the additional steps at the very end:
 1. **1st and 2nd only**: Open the `hook.conf` file and set the following property: `game.1st_2nd_fs=1`. For details, see
 [this section](#1st-or-2nd-errors-about-failed-resource-loading)
@@ -36,7 +36,7 @@ confirm `DEFAULT SETTING` and `SAVE AND EXIT`. Next, go to `COIN OPTION`, `DEFAU
 for details.
 
 ## Dependencies
-Make sure to read the different methods of dependency resolution available in the [main hook readme file](../hook.md),
+Make sure to read the different methods of dependency resolution available in the [main hook readme file](./hook.md),
 first.
 
 Note: Game is 32-bit, so you need to install the 32-bit versions of the dependencies!
@@ -76,7 +76,7 @@ Further indirect dependencies are needed but should be taken care of automatical
 install the direct dependencies.
 
 ## Data setup
-In additional to the [general information applying to **all** hooks](../hook.md#data-setup), the following information
+In additional to the [general information applying to **all** hooks](./hook.md#data-setup), the following information
 goes for a clean set of data from a pristine/non-bootleg CD.
 
 If you have the official release, this might not be relevant to you as it just explains some important technical details
@@ -199,7 +199,7 @@ Check the `hook.conf` file which is located in the same folder as the `piu` exec
 The available settings are explained in the `hook.conf` file.
 
 ### Configure IO
-See [this section of the main hook readme](../hook.md#configure-io).
+See [this section of the main hook readme](./hook.md#configure-io).
 
 ### Select another audio device
 If the default sound card is not working, e.g. see [here](#no-sound-and-fmod-errors-in-log), you might want to
@@ -242,7 +242,7 @@ After that's done, you should see additional log output by fmodex on the console
 
 ## Troubleshooting and FAQ
 Make sure to also check the
-[troubleshooting and FAQ section of the main hook readme](../hook.md#troubleshooting-and-faq). This covers various
+[troubleshooting and FAQ section of the main hook readme](./hook.md#troubleshooting-and-faq). This covers various
 things that apply to **all** hooks. The following sub-sections apply mainly to this hook.
 
 ### No sound and FMOD errors in log

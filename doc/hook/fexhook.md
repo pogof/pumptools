@@ -1,4 +1,8 @@
-# Notable features
+# fexhook: Fiesta Ex
+This readme covers any matters that are relevant for this hook, only. Anything that applies to **all** hooks is covered
+in a [main hook readme file](./hook.md) including general data setup and a quick start guide.
+
+## Notable features
 
 * Runs on recent kernel versions thanks to various fixes
 * Runs on 32-bit and 64-bit distros (64-bit distros require additional 32-bit libs to be installed)
@@ -7,10 +11,10 @@
 * Full MK6IO emulation with API hook: Keyboard or your own custom IO
 * Real IO passthrough (for MK6 usb io)
 
-# Versions supported
+## Versions supported
 All known versions supported.
 
-# Data setup
+## Data setup
 You are expected to get a clean set of data from a prestine drive. Ensure that
 the game version matches one of the supported versions listed.
 
@@ -62,7 +66,7 @@ dependencies (with versions) required to run the game:
 * libcap.so.2
 * libresolv.so.2
 
-# Hook module configuration file
+## Hook module configuration file
 Checkout the usage information of the hook and set the option values according
 to your needs. Here is an example option configuration file:
 ```
@@ -78,11 +82,11 @@ keyboard_dev=/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse
 halt_on_segv=0
 ```
 
-# Run the game
+## Run the game
 Ensure you are running an X screen. Otherwise, you have to start one along with the game. Various library/system-calls
 require root privileges. Make sure to run the game as root or with sudo (otherwise you get various sorts of errors,
 typically permission denied). Use the included *run.sh* file to start the game on a desktop environment.
 
-# Further notes
-## Vsync
+## Further notes
+### Vsync
 The game is required to run with vsync on.

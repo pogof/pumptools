@@ -1,12 +1,12 @@
 # prohook: Pro (1)
 This readme covers any matters that are relevant for this hook, only. Anything that applies to **all** hooks is covered
-in a [main hook readme file](../hook.md) including general data setup and a quick start guide.
+in a [main hook readme file](./hook.md) including general data setup and a quick start guide.
 
 ## Versions supported
 All known versions supported if no-dongle patched at this time.
 
 ## Dependencies
-Make sure to read the different methods of dependency resolution available in the [main hook readme file](../hook.md),
+Make sure to read the different methods of dependency resolution available in the [main hook readme file](./hook.md),
 first.
 
 Note: Game is 32-bit, so you need to install the 32-bit versions of the dependencies!
@@ -89,7 +89,7 @@ Once you plug-in a USB thumb drive to the configured ports, it should show up on
 
 ## Troubleshooting and FAQ
 Make sure to also check the
-[troubleshooting and FAQ section of the main hook readme](../hook.md#troubleshooting-and-faq). This covers various
+[troubleshooting and FAQ section of the main hook readme](./hook.md#troubleshooting-and-faq). This covers various
 things that apply to **all** hooks. The following sub-sections apply mainly to this hook.
 
 ## Enable log output from the game

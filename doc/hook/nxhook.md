@@ -1,12 +1,12 @@
 # nxhook: NX
 This readme covers any matters that are relevant for this hook, only. Anything that applies to **all** hooks is covered
-in a [main hook readme file](../hook.md) including general data setup and a quick start guide.
+in a [main hook readme file](./hook.md) including general data setup and a quick start guide.
 
 ## Versions supported
 All known versions supported.
 
 ## Dependencies
-Make sure to read the different methods of dependency resolution available in the [main hook readme file](../hook.md),
+Make sure to read the different methods of dependency resolution available in the [main hook readme file](./hook.md),
 first.
 
 Note: Game is 32-bit, so you need to install the 32-bit versions of the dependencies!
@@ -40,12 +40,12 @@ Further indirect dependencies are needed but should be taken care of automatical
 install the direct dependencies.
 
 ## Data setup
-In additional to the [general information applying to **all** hooks](../hook.md#data-setup), this game requires all
+In additional to the [general information applying to **all** hooks](./hook.md#data-setup), this game requires all
 files and folders in the `game` folder to be in **UPPERCASE** on a case-sensitive file system.
 
 ## Troubleshooting and FAQ
 Make sure to also check the
-[troubleshooting and FAQ section of the main hook readme](../hook.md#troubleshooting-and-faq). This covers various
+[troubleshooting and FAQ section of the main hook readme](./hook.md#troubleshooting-and-faq). This covers various
 things that apply to **all** hooks. The following sub-sections apply mainly to this hook.
 
 ### Fully unlock the game
