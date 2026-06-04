@@ -16,7 +16,7 @@
 
 // Enable this to get a detailed "call trace" of reads/writes and updates
 // for debugging purpose
-// #define PATCH_PIUIO_CALL_TRACE
+#define PATCH_PIUIO_CALL_TRACE
 
 static bool _patch_piuio_enumerate(bool real_exists);
 static enum cnh_result _patch_piuio_open(void);
@@ -48,6 +48,7 @@ static const struct cnh_usb_emu_virtdev_ep _patch_piuio_virtdev = {
 static uint32_t _patch_piuio_poll_delay_ms;
 static struct ptapi_io_piuio_api _patch_piuio_api;
 static enum ptapi_io_piuio_sensor_group _patch_piuio_sensor_group;
+static uint32_t _patch_piuio_ctrls_since_update;
 
 void patch_piuio_init(const char *piuio_lib_path, uint32_t poll_delay_ms)
 {
@@ -93,6 +94,8 @@ static enum cnh_result _patch_piuio_open(void)
 {
   log_info("Opening PIUIO: %s", _patch_piuio_api.ident());
 
+  _patch_piuio_ctrls_since_update = 0;
+
   if (!_patch_piuio_api.open()) {
     log_error("Opening api piuio %s failed", _patch_piuio_api.ident());
     return CNH_RESULT_OTHER_ERROR;
@@ -104,6 +107,8 @@ static enum cnh_result _patch_piuio_open(void)
 static enum cnh_result _patch_piuio_reset(void)
 {
   log_info("Resetting PIUIO: %s", _patch_piuio_api.ident());
+
+  _patch_piuio_ctrls_since_update = 0;
 
   _patch_piuio_api.close();
 
@@ -180,10 +185,17 @@ static enum cnh_result _patch_piuio_control_msg(
     log_debug("Write: %d", _patch_piuio_sensor_group);
 #endif
 
-    // Trigger exactly ONE full update cycle on the API implementation on
-    // every first call of the whole update cycle
+    // Normal update cycle: refresh inputs at the start of each sensor group
+    // sweep (group 0). Some game states (e.g. service menu) may never send
+    // group 0, so use a counter fallback: if 4 consecutive CTRL_OUTs have
+    // elapsed without an update, force one. This avoids over-triggering recv()
+    // during normal gameplay while still handling non-standard poll patterns.
+    _patch_piuio_ctrls_since_update++;
+    bool should_update = (_patch_piuio_sensor_group == 0) ||
+               (_patch_piuio_ctrls_since_update >= 4);
 
-    if (_patch_piuio_sensor_group == 0) {
+    if (should_update) {
+      _patch_piuio_ctrls_since_update = 0;
 #ifdef PATCH_PIUIO_CALL_TRACE
       log_debug("Update API");
 #endif
