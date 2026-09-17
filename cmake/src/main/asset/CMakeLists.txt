@@ -1,5 +1,6 @@
 add_subdirectory(f2)
 add_subdirectory(fex)
+add_subdirectory(fiesta)
 add_subdirectory(nx)
 add_subdirectory(nx2)
 add_subdirectory(nxa)
