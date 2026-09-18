@@ -8,7 +8,7 @@
 #include "util.h"
 
 struct asset_f2_usb_rank *
-asset_f2_util_rank_usb_load_from_file(const char *path, bool encrypted)
+asset_f2_util_usb_rank_load_from_file(const char *path, bool encrypted)
 {
   struct asset_f2_usb_rank *rank;
   size_t size;
@@ -35,7 +35,7 @@ asset_f2_util_rank_usb_load_from_file(const char *path, bool encrypted)
   return rank;
 }
 
-bool asset_f2_util_rank_usb_save_to_file(
+bool asset_f2_util_usb_rank_save_to_file(
     const char *path, const struct asset_f2_usb_rank *rank, bool encrypt)
 {
   struct asset_f2_usb_rank rank_enc;

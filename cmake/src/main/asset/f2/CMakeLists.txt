@@ -1,2 +1,2 @@
-#add_subdirectory(lib)
-#add_subdirectory(tool)
+add_subdirectory(lib)
+add_subdirectory(tool)
