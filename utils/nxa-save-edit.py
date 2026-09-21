@@ -1,29 +1,25 @@
 #!/usr/bin/env python3
-"""Set NX2 song scores and player IDs in an encrypted nx2save.bin file."""
+"""Set NXA profile player IDs and mileage in an encrypted nxasave.bin file."""
 
 import argparse
 import struct
 import zlib
 from pathlib import Path
 
-SAVE_SIZE = 30780
-REVIEW_SIZE = 292
+SAVE_SIZE = 90868
+REVIEW_SIZE = 0x144
 CHECKSUM_OFFSET = REVIEW_SIZE
 STATS_DATA_OFFSET = CHECKSUM_OFFSET + 4
+REVIEW_PLAYER_ID_OFFSET = 0x0000
 REVIEW_MILEAGE_OFFSET = 0x000C
-STATS_MILEAGE_OFFSET = 0x0188
-SONG_UNLOCKS_OFFSET = 0x01A4
-SONG_SCORES_OFFSET = 0x282C
-SONG_COUNT = 256
-MODE_COUNT = 5
-SONG_SCORE_SIZE = 16
+STATS_PLAYER_ID_OFFSET = 0x019C
+STATS_MILEAGE_OFFSET = 0x01A8
 PLAYER_ID_SIZE = 12
 DEFAULT_MILEAGE = 9999
-SONG_UNLOCK_FLAGS = 0xDF
 
 
 def decrypt_stats(data: bytearray) -> None:
-    """Decrypt bytes 0x0124 through the end, matching the C implementation."""
+    """Decrypt bytes 0x0144 through the end, matching the C implementation."""
     stats = data[CHECKSUM_OFFSET:]
     for index in range(len(stats) - 1, 0, -1):
         adjustment = (index * 1234567) >> 8
@@ -32,7 +28,7 @@ def decrypt_stats(data: bytearray) -> None:
 
 
 def encrypt_stats(data: bytearray) -> None:
-    """Encrypt bytes 0x0124 through the end, matching the C implementation."""
+    """Encrypt bytes 0x0144 through the end, matching the C implementation."""
     stats = data[CHECKSUM_OFFSET:]
     for index in range(1, len(stats)):
         adjustment = (index * 1234567) >> 8
@@ -47,42 +43,30 @@ def fixed_string(value: str, size: int) -> bytes:
     return encoded + b"\0" * (size - len(encoded))
 
 
-def update_scores(data: bytearray, player_id: bytes) -> None:
-    for song_index in range(SONG_COUNT):
-        score = song_index + 1
-        for mode_index in range(MODE_COUNT):
-            entry_offset = SONG_SCORES_OFFSET + SONG_SCORE_SIZE * (
-                song_index * MODE_COUNT + mode_index
-            )
-            data[entry_offset : entry_offset + SONG_SCORE_SIZE] = b"\0" * SONG_SCORE_SIZE
-            struct.pack_into("<i", data, entry_offset, score)
-            data[
-                entry_offset + 4 : entry_offset + 4 + PLAYER_ID_SIZE
-            ] = player_id
+def update_player_ids(data: bytearray, player_id: bytes) -> None:
+    data[REVIEW_PLAYER_ID_OFFSET : REVIEW_PLAYER_ID_OFFSET + PLAYER_ID_SIZE] = player_id
+    data[STATS_PLAYER_ID_OFFSET : STATS_PLAYER_ID_OFFSET + PLAYER_ID_SIZE] = player_id
 
 
 def update_mileage(data: bytearray, mileage: int) -> None:
-    struct.pack_into("<i", data, REVIEW_MILEAGE_OFFSET, mileage)
+    struct.pack_into("<I", data, REVIEW_MILEAGE_OFFSET, mileage)
     struct.pack_into("<i", data, STATS_MILEAGE_OFFSET, mileage)
-
-
-def update_song_unlocks(data: bytearray) -> None:
-    data[SONG_UNLOCKS_OFFSET : SONG_UNLOCKS_OFFSET + SONG_COUNT] = bytes(
-        [SONG_UNLOCK_FLAGS]
-    ) * SONG_COUNT
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Decrypt nx2save.bin, set every song's five mode scores to its "
-            "1-based song number, unlock every song, set mileage, "
+            "Decrypt nxasave.bin, set profile player IDs and mileage, "
             "recalculate Adler-32, and encrypt it."
         )
     )
-    parser.add_argument("input", type=Path, help="encrypted nx2save.bin")
+    parser.add_argument("input", type=Path, help="encrypted nxasave.bin")
     parser.add_argument("output", type=Path, help="encrypted output file")
-    parser.add_argument("player_id", help="ASCII player ID stored with every song score")
+    parser.add_argument(
+        "player_id",
+        nargs="?",
+        help="optional ASCII player ID stored in the review and stats profile headers",
+    )
     parser.add_argument(
         "--mileage",
         type=int,
@@ -93,8 +77,9 @@ def main() -> None:
 
     if args.mileage < 0:
         raise SystemExit("error: mileage must be a non-negative integer")
+    if args.mileage > 0x7FFFFFFF:
+        raise SystemExit("error: mileage must fit in a signed 32-bit integer")
 
-    player_id = fixed_string(args.player_id, PLAYER_ID_SIZE)
     data = bytearray(args.input.read_bytes())
     if len(data) != SAVE_SIZE:
         raise SystemExit(
@@ -102,18 +87,19 @@ def main() -> None:
         )
 
     decrypt_stats(data)
-    update_song_unlocks(data)
-    update_scores(data, player_id)
+    if args.player_id is not None:
+        player_id = fixed_string(args.player_id, PLAYER_ID_SIZE)
+        update_player_ids(data, player_id)
     update_mileage(data, args.mileage)
     checksum = zlib.adler32(data[STATS_DATA_OFFSET:]) & 0xFFFFFFFF
     struct.pack_into("<I", data, CHECKSUM_OFFSET, checksum)
     encrypt_stats(data)
     args.output.write_bytes(data)
 
+    player_summary = args.player_id if args.player_id is not None else "unchanged"
     print(
         f"wrote {args.output}: checksum 0x{checksum:08X}; "
-        f"songs unlocked; songs 1-{SONG_COUNT}, all {MODE_COUNT} modes; "
-        f"mileage {args.mileage}"
+        f"player {player_summary}; mileage {args.mileage}"
     )
 
 
