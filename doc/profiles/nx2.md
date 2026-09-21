@@ -53,128 +53,250 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 
 ## Score entries offsets
 
-| Artist | Song | Audio # | Offset |
-|---|---|---:|---|
-| YAHPP | Blaze Emotion | 000 | `` |
-|  | | 001 | `` |- doesnt exist 
-| YAHPP | Chopsticks Challenge | 002 | `` |
-| Big Bang | La La La | 003 | `` |
-| Eun, Ji-Won | Adios | 004 | `` |
-| 45RPM | Slightly | 005 | `` |
-| S.E.S | I'm Your Girl | 006 | `` |
-| Namolla Family | Only You | 007 | `` |
-| Banana Girl | Chocolate | 008 | `` |
-| DJ Missill | Forward | 009 | `` |
-| Sam-I-Am | Uprock | 010 | `` |
-| Gyfted | Crazy |  | `` |
-| Big metra | Panuelito Rojo |  | `` |
-| PXNDX | Procedimientos para Ilegar a un com... |  | `` |
-| Nina Pilots | Digan Lo Que Digan |  | `` |
-| Thaide & lil V | Pump Breakers |  | `` |
-| Wang Li Hong (Original) | Change Myself |  | `` |
-| Lee, Jung-Hyun | Come on! |  | `` |
-| Jang, Na-Ra | Bad Character |  | `` |
-| Super Junior M | U |  | `` |
-| Steve Yoo | Breakin' Love |  | `` |
-| Banya Production | The People didn't know |  | `` |
-| Banya Production | DJ Otada |  | `` |
-| Banya Production | K.O.A: Alice In Wonderland |  | `` |
-| Banya Production | My Dream |  | `` |
-| Banya Production | Toccata |  | `` |
-| YAHPP | Solitary 1.5 |  | `` |
-| YAHPP | Faster Z  |  | `` |
-| YAHPP | Pumptris Quattro |  | `` |
-| Banya Production | Caprice of Otada |  | `` |
-| Banya Production | Higgledy Piggledy | 033 | `` |
-| Banya Production | Jam O Beat | 034 | `` |
-| YAHPP | Witch Doctor #1 | 035 | `` |
-|  | Arch of Dakrness | 36 | `` |
-|  | Chimera |  | `` |
-|  | Final Audition Ep. 2-1 |  | `` |
-|  | Final Audition Ep. 2-2 |  | `` |
-| BanYa | Beat of The War 2 |  | `` |
-|  | Moonlight | 041 | `` |
-|  | Witch Doctor |  | `` |
-|  | Love is a Danger Zone pt. 2 | 043 | `` |
-|  | Phantom |  | `` |
-|  | Cannon D |  | `` |
-|  | Solitary 2 |  | `` |
-|  | Hi Bi |  | `` |
-|  | X Treme |  | `` |
-|  | Monkey Fingers |  | `` |
-|  | Naissance 2 |  | `` |
-|  | Final Audition 3 |  | `` |
-|  | Final Audition Ep. 1 |  | `` |
-|  | Come To Me |  | `` |
-|  | Bee |  | `` |
-|  | Vook |  | `` |
-|  | Will-O-The-Wisp |  | `` |
-|  | Winter |  | `` |
-|  | Point Break |  | `` |
-|  | Love is a Danger Zone | 059 | `` |
-|  | Dr. M |  | `` |
-|  | Beethoven Virus |  | `` |
-|  | N |  | `` |
-|  | Mr. Larpus |  | `` |
-|  | Solitary |  | `` |
-|  | She Likes Pizza | 065 | `` |
-|  | Turkey March |  | `` |
-|  | Naissance | 067 | `` |
-|  | Final Audition 2 |  | `` |
-|  | Extravaganza |  | `` |
-|  | Final Audition |  | `` |
-| Baechigi | Nice to Meet You | 71 | `` |
-| 015B | Very Old Couples |  | `` |
-| Mina | Get My Phone Call |  | `` |
-| Joanne | Shiny Day |  | `` |
-| Gilgun | A. U Ready? |  | `` |
-| Bada | V. I. P. |  | `` |
-| Taiji Boys | It's My Business |  | `` |
-| No Brain | You Fall in Me |  | `` |
-| Pia | A Maelstorm |  | `` |
-| Crying Nut | Astral Song |  | `` |
-| Hot Potato | No Despair |  | `` |
-| May | Computation |  | `` |
-| HEaDTriP | Beat # No.4 |  | `` |
-| Taiji Boys | Come Back Home |  | `` |
-| Taiji Seo | Feel The Soul |  | `` |
-| Wonder Girls | Tell Me |  | `` |
-| DJ DOC | One Night |  | `` |
-| Spooky Banana | Mr. Fire Fighter |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
-|  |  |  | `` |
+### Arcade Station
 
+| Artist | Song | NOTE | Offset | Offset # | 
+|---|---|---|---|---:|
+| Banya Production | Money |  | `` | 0 |
+| Banya Production | Guitar Man | | `` | 1 |
+| Banya Production | Jam O Beat | 034 | `` | 2 |
+| Banya Production | Beat The Ghost | | ``| 3 |
+| Banya Production | Monkey Fingers 2 |  | `` | 4 |
+| Banya Production | Caprice of Otada |  | `` | 5 |
+| Banya Production | Higgledy Piggledy | 033 | `` | 6|
+| Sonic Dimension |Groovin' Motion | | `` | 7 |
+| OscillatorX | Dance All Night | |``| 8 |
+| Elpis | Dance Vibrations | |``| 9 |
+| Sonic Dimension | Chopstix ||`` |10|
+| Zig Zag | Energizer | |``|11|
+| YAHPP | Faster Z  |  | `` | 12 |
+| YAHPP | Solitary 1.5 |  | `` | 13 |
+| YAHPP | Pumptris Quattro |  | `` | 14 |
+| Wonder Girls | Tell Me | KOREA EXCLUSIVE | `` | 15 | 
+| Taiji Boys | It's My Business |  | `` | 16
+| Taiji Boys | Come Back Home |  | `` | 17
+| Taiji Seo | Feel The Soul |  | `` | 18
+| Joanne | Shiny Day |  | `` | 19
+| Gilgun | A. U Ready? |  | `` | 20
+| Mina | Get My Phone Call |  | `` | 21
+| 015B | Very Old Couples |  | `` | 22
+| Bada | V. I. P. |  | `` | 23
+| Baechigi | Nice to Meet You | 71 | `` | 24
+| No Brain | You Fall in Me |  | `` | 25
+| Crying Nut | Astral Song |  | `` | 26
+| May | Compunction | | `` | 27
+| Pia | A Maelstorm |  | `` | 28
+| HEaDTriP | Beat # No.4 |  | `` | 29
+| Hot Potato | No Despair |  | `` | 30
+| Dynamic duo | Go Back |  | `` | 31
+| Epik High | Fly |  | `` | 32
+| DJ DOC | One Night |  | `` | 33
+| JinYoungHyun VS Yahpp | U Inside My Dim Memory |  | `` | 34
+| Jiny | Free! |  | `` | 35
+| Jongkook Kim | Lovely |  | `` | 36
+| Urburbu Project | Terminal Depository |  | `` | 37
+| N.E.X.T | For You |  | `` | 38
+| Apple Jam | Snow Dream |  | `` | 39
+| May | Handsome Character That Pass|  | `` | 40
+|  | Hyunjinyoung Go jinyoung Go |  | `` | 41
+|  | My Brother Is Street Singer |  | `` | 42
+| Typhoon | So |  | `` | 43
+|  | Hold The Line |  | `` | 44
+| Drunken Tiger | Emergency! |  | `` | 45
+| Cho PD | My Friend |  | `` | 46
+| Eugene | Wuthering Heights |  | `` | 47
+| Lazy Bone | Do It Yourself |  | `` | 48
+| Turtles | What's Going On? |  | `` | 49
+|  | Chung Hwa Ban Jeom |  | `` | 50
+| Spooky Banana | Mr. Fire Fighter |  | `` | 51
+| T.O | Footprints |  | `` | 52
+| Yoonjung Jang | Oh My! |  | `` | 53
+| JLT | Enter The Dragon |  | `` | 54
+| Perry | Storm |  | `` | 55
+| Mina | Turn Around |  | `` | 56
+| LEXY | Greenhorn |  | `` | 57
+| 1Tym | HOT |  | `` | 58
+| SOM2 | Pray |  | `` | 59
+|  | Dead Drunkenness in Melody |  | `` | 60
+| SOM2 | Deja Vu |  | `` | 61
+| D.O | Harangue |  | `` | 62
+| D.O | Typhoon |  | `` | 63
+| Wax | I'll Give You All My Love |  | `` | 64
+| Crash | Dignity |  | `` | 65
+| Crash | What Do You Really Want? |  | `` | 66
+| U;NEE | Go |  | `` | 67
+| Crying Nut | Circus Magic |  | `` | 68
+| DUKE | Starian |  | `` | 69
+| U-Too | Mistake |  | `` | 70
+| N.E.X.T | Lazenca Save Us |  | `` | 71
+| DEUX | Come Back To Me |  | `` | 72
+| Novasonic | Slam |  | `` | 73
+| Tashannie | Don't Bother Me |  | `` | 74
+| DEUX | We Are |  | `` | 75
+| Sechs Kies | Com'Back |  | `` | 76
+| Fin.K.L | Forever Love |  | `` | 77
+| CLON | Funky Tonight |  | `` | 78
+| Novasonic | Another Truth |  | `` | 79
+| DJ Dookie | Hybs |  | `` | 80
+| Andrew Kim | Throw'em |  | `` | 81
+| Sam-I-Am | Haley |  | `` | 82
+| Gyfted | We Goin' Fly Remix |  | `` | 83
+| Manresa | Le Code De Bonne Conduite |  | `` | 84
+| Kaoma | Essa Maneria |  | `` | 85
+|  | La Cubanita |  | `` | 86
+| ROD | Shake It Up |  | `` | 87
+| Victoria | Power of Dream |  | `` | 88
+| Victoria | Watch Out |  | `` | 89
+|  | Soca Make Yuh Ram Ram |  | `` | 90
+| BanYa | Final Audition |  | `` | 91
+| BanYa | Extravaganza |  | `` | 92
+| BanYa | Final Audition 2 |  | `` | 93
+| BanYa | Naissance | 067 | `` | 94
+| BanYa | Turkey March |  | `` | 95
+| BanYa | She Likes Pizza | 065 | `` | 96
+| BanYa | Solitary |  | `` | 97
+| BanYa | Mr. Larpus |  | `` | 98
+| BanYa | N |  | `` | 99
+| BanYa | Beethoven Virus |  | `` | 100
+| BanYa | Dr. M |  | `` | 101
+| BanYa | Love is a Danger Zone | 059 | `` | 102
+| BanYa | Point Break |  | `` | 103
+| BanYa | Street Show Down |  | `` | 104
+| BanYa | Winter |  | `` | 105
+| BanYa | Will-O-The-Wisp |  | `` | 106
+| BanYa | Miss S' Story |  | `` | 107
+| BanYa | Vook |  | `` | 108
+| BanYa | Bee |  | `` | 109
+| BanYa | Beat of The War |  | `` | 110
+| BanYa | Come To Me |  | `` | 111
+| BanYa | Final Audition Ep. 1 |  | `` | 112
+| BanYa | Final Audition 3 |  | `` | 113
+| BanYa | Naissance 2 |  | `` | 114
+| BanYa | Monkey Fingers |  | `` | 115
+| BanYa | X Treme |  | `` | 116
+| BanYa | Get Up! |  | `` | 117
+| BanYa | J Bong |  | `` | 118
+| BanYa | Hi Bi |  | `` | 119
+| BanYa | Solitary 2 |  | `` | 120
+| BanYa | Cannon D |  | `` | 121
+| BanYa | Beat of The War 2 |  | `` | 122
+| BanYa | Moonlight | 041 | `` | 123
+| BanYa | Witch Doctor |  | `` | 124
+| BanYa | Love is a Danger Zone pt. 2 | 043 | `` | 125
+| BanYa | Phantom |  | `` | 126
+| YAHPP | Witch Doctor #1 | 035 | `` | 127
+| YAHPP | Arch of Dakrness | 036 | `` | 128
+| YAHPP | Chimera |  | `` | 129
+| Banya Production | Do You Know That-Old School |  | `` | 130
+|  | Bullfighter's Song |  | `` | 131
+| YAHPP | Final Audition Ep. 2-1 |  | `` | 132
+| YAHPP | Final Audition Ep. 2-2 |  | `` | 133
+|  |  | UNKNOWN (Could be Special zone) | `` | 134
+
+### Special Zone
+
+#### Full Songs
+
+| Artist | Song | NOTE | Offset | Offset # | 
+|---|---|---|---|---:|
+| 015B | Very Old Couples |  | `` | 135
+| Taiji Boys | Come Back Home |  | `` | 136
+|  |  |  | `` | 137
+| Bada | V. I. P. |  | `` | 138
+|  |  |  | `` | 139
+|  |  |  | `` | 140
+| JinYoungHyun VS Yahpp | U Inside My Dim Memory |  | `` | 141
+| YAHPP | Fire |  | `` | 142
+| Jongkook Kim | Lovely |  | `` | 143
+| BanYa | Love is a Danger Zone 2 | | `` | 144
+| YAHPP | Beat of The War 2 |  | `` | 145
+| Cho PD | Hold The Line |  | `` | 146
+| YAHPP | Canon D Fullmix |  | `` | 147
+| Crash | Dignity Fullmix |  | `` | 148
+
+#### Remix
+
+| Artist | Song | NOTE | Offset | Offset # | 
+|---|---|---|---|---:|
+| Banya Production | Banya-P Guitar Remix |  | `` | 149
+|  | GuitarMan Fullver. |  | `` | 150
+|  |  |  | `` | 151
+|  |  |  | `` | 152
+|  |  |  | `` | 153
+|  |  |  | `` | 154
+| Crying Nut | Astral Song Fullver. |  | `` | 155
+| Mina/Baechigi | NX2 K-Pop Remix 2 | | | 156
+| Hot Potato | No Despair Fullver. |  | `` | 157
+| | | | | 158
+|  |  |  | `` | 159
+|  | NX K-Pop Dance Remix |  | `` | 160
+|  | Groove Party |  | `` | 161
+|  | Pop House Remix |  | `` | 162
+| YAHPP | WI-EX-DOC-VA |  | `` | 163
+| YAHPP | Bemera |  | `` | 164
+| Banya Production | Banya-P Classic Remix |  | `` | 165
+|  | Love is a Danger Zone 2 Try to B.P.M |  | `` | 166
+|  | ZERO K-Hiphop Remix |  | `` | 167
+|  | NOVARASH Remix |  | `` | 168
+|  | Tream Vook of The War |  | `` | 169
+|  | Deux Remix |  | `` | 170
+|  | Turbo Remix |  | `` | 171
+|  | 2nd Hidden Remix |  | `` | 172
+|  | Drunken Family Remix |  | `` | 173
+|  | BanYa Hiphop Remix |  | `` | 174
+|  | BanYa Classic Remix |  | `` | 175
+|  | EXTRA BanYa Remix |  | `` | 176
+
+
+#### Another Step
+
+| Artist | Song | NOTE | Offset | Offset # |
+|---|---|---|---|---:|
+| BanYa | Solitary |  | `` | 177
+| Jiny | Free! |  | `` | 178
+| Apple Jam | Snow Dream |  | `` | 179
+| May | Handsome Character That Pass|  | `` | 180
+|  |  |  | `` | 181
+|  |  |  | `` | 182
+|  |  |  | `` | 183
+|  |  |  | `` | 184
+|  |  |  | `` | 185
+|  |  |  | `` | 186
+|  |  |  | `` | 187
+|  |  |  | `` | 188
+|  |  |  | `` | 189
+|  |  |  | `` | 190
+|  |  |  | `` | 191
+|  |  |  | `` | 192
+|  |  |  | `` | 193
+|  |  |  | `` | 194
+| BanYa | Extravaganza |  | `` | 195
+| BanYa | Love is a Danger Zone pt. 2 |  | `` | 196
+| BanYa | Naissance 2 |  | `` | 197
+|  |  |  | `` | 198
+| BanYa | Love is a Danger Zone |  | `` | 199
+| BanYa | Witch Doctor |  | `` | 200
+| Lazy Bone | Do It Yourself |  | `` | 201
+| BanYa | Mr. Larpus |  | `` | 202
+|  | Vook |  | `` | 203
+| Novasonic | Another Truth |  | `` | 204
+| BanYa | Final Audition 2 |  | `` | 205
+| BanYa | Final Audition |  | `` | 206
+| BanYa | Final Audition 3 |  | `` | 207
+| YAHPP | Chimera |  | `` | 208
+| BanYa | Beethoven Virus |  | `` | 209
+| BanYa | Bee | zde se neco pokazilo (o jedno vic?) | `` | 210
+|  | Final Audition Ep. 1 |  | `` | 211
+|  | Final Audition Ep. 2-1 |  | `` | 212
+|  | Final Audition Ep. 2-2 |  | `` | 213
+|  | Witch Doctor #1 |  | `` | 214
+|  | Dr M. |  | `` | 215
+| N.E.X.T | For You |  | `` | 216
+|  | Phantom |  | `` | 217
+|  | Hi Bi |  | `` | 218
+|  | Deja Vu |  | `` | 219
+|  | Gun Rock |  | `` | 220
+|  |  |  | `` | 221-256
 
 
 # nx2rank.bin
