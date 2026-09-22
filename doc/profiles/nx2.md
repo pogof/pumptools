@@ -57,22 +57,22 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 
 | Artist | Song | NOTE | Offset | Offset # | 
 |---|---|---|---|---:|
-| Banya Production | Money |  | `` | 0 |
-| Banya Production | Guitar Man | | `` | 1 |
-| Banya Production | Jam O Beat | 034 | `` | 2 |
-| Banya Production | Beat The Ghost | | ``| 3 |
-| Banya Production | Monkey Fingers 2 |  | `` | 4 |
-| Banya Production | Caprice of Otada |  | `` | 5 |
-| Banya Production | Higgledy Piggledy | 033 | `` | 6|
-| Sonic Dimension |Groovin' Motion | | `` | 7 |
-| OscillatorX | Dance All Night | |``| 8 |
-| Elpis | Dance Vibrations | |``| 9 |
-| Sonic Dimension | Chopstix ||`` |10|
-| Zig Zag | Energizer | |``|11|
-| YAHPP | Faster Z  |  | `` | 12 |
-| YAHPP | Solitary 1.5 |  | `` | 13 |
-| YAHPP | Pumptris Quattro |  | `` | 14 |
-| Wonder Girls | Tell Me | KOREA EXCLUSIVE | `` | 15 | 
+| Banya Production | Money |  | `` | 0
+| Banya Production | Guitar Man |  | `` | 1
+| Banya Production | Jam O Beat |  | `` | 2
+| Banya Production | Beat The Ghost |  | ``| 3
+| Banya Production | Monkey Fingers 2 |  | `` | 4
+| Banya Production | Caprice of Otada |  | `` | 5
+| Banya Production | Higgledy Piggledy |  | `` | 6
+| Sonic Dimension |Groovin' Motion |  | `` | 7
+| OscillatorX | Dance All Night |  | `` | 8
+| Elpis | Dance Vibrations |  | `` | 9
+| Sonic Dimension | Chopstix |  |`` | 10
+| Zig Zag | Energizer |  | `` | 11
+| YAHPP | Faster Z  |  | `` | 12
+| YAHPP | Solitary 1.5 |  | `` | 13
+| YAHPP | Pumptris Quattro |  | `` | 14
+| Wonder Girls | Tell Me | KOREA EXCLUSIVE | `` | 15 
 | Taiji Boys | It's My Business |  | `` | 16
 | Taiji Boys | Come Back Home |  | `` | 17
 | Taiji Seo | Feel The Soul |  | `` | 18
@@ -81,7 +81,7 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 | Mina | Get My Phone Call |  | `` | 21
 | 015B | Very Old Couples |  | `` | 22
 | Bada | V. I. P. |  | `` | 23
-| Baechigi | Nice to Meet You | 71 | `` | 24
+| Baechigi | Nice to Meet You |  | `` | 24
 | No Brain | You Fall in Me |  | `` | 25
 | Crying Nut | Astral Song |  | `` | 26
 | May | Compunction | | `` | 27
@@ -151,15 +151,15 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 | BanYa | Final Audition |  | `` | 91
 | BanYa | Extravaganza |  | `` | 92
 | BanYa | Final Audition 2 |  | `` | 93
-| BanYa | Naissance | 067 | `` | 94
+| BanYa | Naissance |  | `` | 94
 | BanYa | Turkey March |  | `` | 95
-| BanYa | She Likes Pizza | 065 | `` | 96
+| BanYa | She Likes Pizza |  | `` | 96
 | BanYa | Solitary |  | `` | 97
 | BanYa | Mr. Larpus |  | `` | 98
 | BanYa | N |  | `` | 99
 | BanYa | Beethoven Virus |  | `` | 100
 | BanYa | Dr. M |  | `` | 101
-| BanYa | Love is a Danger Zone | 059 | `` | 102
+| BanYa | Love is a Danger Zone |  | `` | 102
 | BanYa | Point Break |  | `` | 103
 | BanYa | Street Show Down |  | `` | 104
 | BanYa | Winter |  | `` | 105
@@ -180,12 +180,12 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 | BanYa | Solitary 2 |  | `` | 120
 | BanYa | Cannon D |  | `` | 121
 | BanYa | Beat of The War 2 |  | `` | 122
-| BanYa | Moonlight | 041 | `` | 123
+| BanYa | Moonlight |  | `` | 123
 | BanYa | Witch Doctor |  | `` | 124
-| BanYa | Love is a Danger Zone pt. 2 | 043 | `` | 125
+| BanYa | Love is a Danger Zone pt. 2 |  | `` | 125
 | BanYa | Phantom |  | `` | 126
-| YAHPP | Witch Doctor #1 | 035 | `` | 127
-| YAHPP | Arch of Dakrness | 036 | `` | 128
+| YAHPP | Witch Doctor #1 |  | `` | 127
+| YAHPP | Arch of Dakrness |  | `` | 128
 | YAHPP | Chimera |  | `` | 129
 | Banya Production | Do You Know That-Old School |  | `` | 130
 |  | Bullfighter's Song |  | `` | 131
@@ -225,9 +225,9 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 |  |  |  | `` | 153
 |  |  |  | `` | 154
 | Crying Nut | Astral Song Fullver. |  | `` | 155
-| Mina/Baechigi | NX2 K-Pop Remix 2 | | | 156
+| Mina/Baechigi | NX2 K-Pop Remix 2 | | `` | 156
 | Hot Potato | No Despair Fullver. |  | `` | 157
-| | | | | 158
+| | | | `` | 158
 |  |  |  | `` | 159
 |  | NX K-Pop Dance Remix |  | `` | 160
 |  | Groove Party |  | `` | 161
@@ -278,7 +278,7 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 | BanYa | Witch Doctor |  | `` | 200
 | Lazy Bone | Do It Yourself |  | `` | 201
 | BanYa | Mr. Larpus |  | `` | 202
-|  | Vook |  | `` | 203
+| BanYa | Vook |  | `` | 203
 | Novasonic | Another Truth |  | `` | 204
 | BanYa | Final Audition 2 |  | `` | 205
 | BanYa | Final Audition |  | `` | 206
@@ -296,7 +296,7 @@ offset = 0x282C + 16 * (song_index * 5 + mode_index)
 |  | Hi Bi |  | `` | 218
 |  | Deja Vu |  | `` | 219
 |  | Gun Rock |  | `` | 220
-|  |  |  | `` | 221-256
+|  |  |  | `` | 221-255
 
 
 # nx2rank.bin
