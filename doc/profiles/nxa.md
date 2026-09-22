@@ -136,17 +136,17 @@
 
 | Artist | Song | NOTE | Offset | Offset # | 
 |---|---|---|---|---:|
-|  |  | Unknown (could be arcade) | `` | 120
+| YAHPP | Chopsticks Challenge | UNLOCK | `` | 120
 | Big Bang | La La La |  | `` | 121
 | Eun, Ji-Won | Adios |  | `` | 122
-|  |  |  | `` | 124
-| PXNDX | Procedimientos para Ilegar a un com... |  | `` | 124
-|  |  |  | `` | 125
+| Big metra | Panuelito Rojo | UNLOCK | `` | 124
+| PXNDX | Procedimientos para Ilegar a un comun acuerdo |  | `` | 124
+| DJ Missill | Forward | UNLOCK | `` | 125
 | 45RPM | Slightly |  | 126
-|  |  |  | `` | 127
+| Lee, Jung-Hyun | Come! | UNLOCK | `` | 127
 | Banana Girl | Chocolate |  | `` | 128
 | Nina Pilots | Digan Lo Que Digan |  | `` | 129
-|  |  |  | `` | 130
+| Big Metra | Trato De No Trabarme | UNLOCK | `` | 130
 | Gyfted | Crazy |  | `` | 131
 | Super Junior M | U |  | `` | 132
 | Wang Li Hong (Original) | Change Myself |  | `` | 133
@@ -161,21 +161,21 @@
 | Crash | Dignity Fullmix |  | `` | 142
 |  | 45RPM & Eun Ji Won Mix |  | `` | 143
 | Banya Production | Ugly duck Toccata |  | `` | 144
-|  |  |  | `` | 145
-|  |  |  | `` | 146
-|  |  |  | `` | 147
+|  |  | UNLOCK | `` | 145
+|  |  | UNLOCK | `` | 146
+|  |  | UNLOCK | `` | 147
 |  | Jam O Beat # no 4 |  | `` | 148
 |  | YG REMIX |  | `` | 149
 |  | Nina PXNDX Mix |  | `` | 150
 |  | Big metra Remix |  | `` | 151
 |  | NXA Hip Hop Mix |  | `` | 152
-|  |  |  | `` | 153
+|  |  | UNLOCK | `` | 153
 |  | Mr. Fire Fighter Falls in Love |  | `` | 154
 | Banya production | J knows that Old Bong |  | `` | 155
 | Banya production | Turkey Virus |  | `` | 156
-|  |  |  | `` | 157
+|  |  | UNLOCK | `` | 157
 | msgoon | msgoon RMX pt.2 |  | `` | 158
-|  |  |  | `` | 159
+|  |  | UNLOCK | `` | 159
 | Banya Production | Banya-P Guitar Remix |  | `` | 160
 | Banya Production | Money Fingers |  | `` | 161
 |  | NX2 K-Pop Dance Remix 1 |  | `` | 162
@@ -188,6 +188,8 @@
 |  | Tream Vook of The War |  | `` | 169
 |  | BanYa Hiphop Remix |  | `` | 170
 |  | EXTRA BanYa Remix |  | `` | 171
+
+https://www.youtube.com/watch?v=9oKhcCsjunw
 
 ### Another Step
 
