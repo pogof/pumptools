@@ -1,9 +1,11 @@
 #define LOG_MODULE "patch-piuio"
 
+#include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "capnhook/hooklib/usb-emu.h"
 
@@ -30,6 +32,10 @@ static enum cnh_result _patch_piuio_control_msg(
     int timeout);
 static void _patch_piuio_close(void);
 
+static void _patch_piuio_async_start(void);
+static void _patch_piuio_async_stop(void);
+static void *_patch_piuio_async_thread(void *arg);
+static void _patch_piuio_async_cycle(void);
 static void _patch_piuio_read_inputs_to_buffer(struct cnh_iobuf *buffer);
 static void _patch_piuio_read_outputs_from_buffer(const uint8_t *bytes);
 static enum ptapi_io_piuio_sensor_group
@@ -48,6 +54,30 @@ static const struct cnh_usb_emu_virtdev_ep _patch_piuio_virtdev = {
 static uint32_t _patch_piuio_poll_delay_ms;
 static struct ptapi_io_piuio_api _patch_piuio_api;
 static enum ptapi_io_piuio_sensor_group _patch_piuio_sensor_group;
+
+/* Delay between two device update cycles of the async polling thread */
+#define PATCH_PIUIO_ASYNC_CYCLE_DELAY_US 500
+
+/* Async mode: the API implementation is exclusively used by the polling thread.
+   The game facing side only exchanges latched state with it under the lock */
+static bool _patch_piuio_async;
+static bool _patch_piuio_async_running;
+static pthread_t _patch_piuio_async_tid;
+static pthread_mutex_t _patch_piuio_async_lock = PTHREAD_MUTEX_INITIALIZER;
+static struct ptapi_io_piuio_pad_inputs
+    _patch_piuio_async_pad_in[2][PTAPI_IO_PIUIO_SENSOR_GROUP_NUM];
+static struct ptapi_io_piuio_sys_inputs _patch_piuio_async_sys_in;
+static struct ptapi_io_piuio_pad_outputs _patch_piuio_async_pad_out[2];
+static struct ptapi_io_piuio_cab_outputs _patch_piuio_async_cab_out;
+
+void patch_piuio_set_async_poll(bool enable)
+{
+  _patch_piuio_async = enable;
+
+  if (enable) {
+    log_info("Async polling enabled");
+  }
+}
 
 void patch_piuio_init(const char *piuio_lib_path, uint32_t poll_delay_ms)
 {
@@ -98,6 +128,8 @@ static enum cnh_result _patch_piuio_open(void)
     return CNH_RESULT_OTHER_ERROR;
   }
 
+  _patch_piuio_async_start();
+
   return CNH_RESULT_SUCCESS;
 }
 
@@ -105,12 +137,15 @@ static enum cnh_result _patch_piuio_reset(void)
 {
   log_info("Resetting PIUIO: %s", _patch_piuio_api.ident());
 
+  _patch_piuio_async_stop();
   _patch_piuio_api.close();
 
   if (!_patch_piuio_api.open()) {
     log_error("Resetting api piuio %s failed", _patch_piuio_api.ident());
     return CNH_RESULT_OTHER_ERROR;
   }
+
+  _patch_piuio_async_start();
 
   return CNH_RESULT_SUCCESS;
 }
@@ -190,7 +225,7 @@ static enum cnh_result _patch_piuio_control_msg(
     // Trigger exactly ONE full update cycle on the API implementation on
     // every first call of the whole update cycle
 
-    if (_patch_piuio_sensor_group == 0) {
+    if (_patch_piuio_sensor_group == 0 && !_patch_piuio_async) {
 #ifdef PATCH_PIUIO_CALL_TRACE
       log_debug("Update API");
 #endif
@@ -226,7 +261,104 @@ static void _patch_piuio_close(void)
 {
   log_info("Closing PIUIO: %s", _patch_piuio_api.ident());
 
+  _patch_piuio_async_stop();
   _patch_piuio_api.close();
+}
+
+static void _patch_piuio_async_start(void)
+{
+  if (!_patch_piuio_async || _patch_piuio_async_running) {
+    return;
+  }
+
+  memset(_patch_piuio_async_pad_in, 0, sizeof(_patch_piuio_async_pad_in));
+  memset(&_patch_piuio_async_sys_in, 0, sizeof(_patch_piuio_async_sys_in));
+
+  _patch_piuio_async_running = true;
+
+  if (pthread_create(
+          &_patch_piuio_async_tid, NULL, _patch_piuio_async_thread, NULL) != 0) {
+    log_error("Starting async polling thread failed");
+    _patch_piuio_async_running = false;
+  }
+}
+
+static void _patch_piuio_async_stop(void)
+{
+  if (!_patch_piuio_async_running) {
+    return;
+  }
+
+  pthread_mutex_lock(&_patch_piuio_async_lock);
+  _patch_piuio_async_running = false;
+  pthread_mutex_unlock(&_patch_piuio_async_lock);
+
+  pthread_join(_patch_piuio_async_tid, NULL);
+}
+
+static void *_patch_piuio_async_thread(void *arg)
+{
+  bool running;
+
+  (void) arg;
+
+  do {
+    _patch_piuio_async_cycle();
+
+    usleep(PATCH_PIUIO_ASYNC_CYCLE_DELAY_US);
+
+    pthread_mutex_lock(&_patch_piuio_async_lock);
+    running = _patch_piuio_async_running;
+    pthread_mutex_unlock(&_patch_piuio_async_lock);
+  } while (running);
+
+  return NULL;
+}
+
+static void _patch_piuio_async_cycle(void)
+{
+  static bool failed;
+
+  struct ptapi_io_piuio_pad_outputs pad_out[2];
+  struct ptapi_io_piuio_cab_outputs cab_out;
+  struct ptapi_io_piuio_pad_inputs pad_in[2][PTAPI_IO_PIUIO_SENSOR_GROUP_NUM];
+  struct ptapi_io_piuio_sys_inputs sys_in;
+
+  pthread_mutex_lock(&_patch_piuio_async_lock);
+  memcpy(pad_out, _patch_piuio_async_pad_out, sizeof(pad_out));
+  memcpy(&cab_out, &_patch_piuio_async_cab_out, sizeof(cab_out));
+  pthread_mutex_unlock(&_patch_piuio_async_lock);
+
+  _patch_piuio_api.set_output_pad(0, &pad_out[0]);
+  _patch_piuio_api.set_output_pad(1, &pad_out[1]);
+  _patch_piuio_api.set_output_cab(&cab_out);
+
+  if (!_patch_piuio_api.send() || !_patch_piuio_api.recv()) {
+    /* Don't flood the log if the device stays broken */
+    if (!failed) {
+      log_error("Updating api piuio %s failed", _patch_piuio_api.ident());
+      failed = true;
+    }
+
+    return;
+  }
+
+  failed = false;
+
+  memset(pad_in, 0, sizeof(pad_in));
+  memset(&sys_in, 0, sizeof(sys_in));
+
+  for (uint8_t i = 0; i < PTAPI_IO_PIUIO_SENSOR_GROUP_NUM; i++) {
+    _patch_piuio_api.get_input_pad(0, i, &pad_in[0][i]);
+    _patch_piuio_api.get_input_pad(1, i, &pad_in[1][i]);
+  }
+
+  _patch_piuio_api.get_input_sys(&sys_in);
+
+  pthread_mutex_lock(&_patch_piuio_async_lock);
+  memcpy(_patch_piuio_async_pad_in, pad_in, sizeof(pad_in));
+  memcpy(&_patch_piuio_async_sys_in, &sys_in, sizeof(sys_in));
+  pthread_mutex_unlock(&_patch_piuio_async_lock);
 }
 
 static void _patch_piuio_read_inputs_to_buffer(struct cnh_iobuf *buffer)
@@ -240,10 +372,18 @@ static void _patch_piuio_read_inputs_to_buffer(struct cnh_iobuf *buffer)
   memset(&p2_pad_in, 0, sizeof(struct ptapi_io_piuio_pad_inputs));
   memset(&sys_in, 0, sizeof(struct ptapi_io_piuio_sys_inputs));
 
-  _patch_piuio_api.get_input_pad(0, _patch_piuio_sensor_group, &p1_pad_in);
-  _patch_piuio_api.get_input_pad(1, _patch_piuio_sensor_group, &p2_pad_in);
+  if (_patch_piuio_async) {
+    pthread_mutex_lock(&_patch_piuio_async_lock);
+    p1_pad_in = _patch_piuio_async_pad_in[0][_patch_piuio_sensor_group];
+    p2_pad_in = _patch_piuio_async_pad_in[1][_patch_piuio_sensor_group];
+    sys_in = _patch_piuio_async_sys_in;
+    pthread_mutex_unlock(&_patch_piuio_async_lock);
+  } else {
+    _patch_piuio_api.get_input_pad(0, _patch_piuio_sensor_group, &p1_pad_in);
+    _patch_piuio_api.get_input_pad(1, _patch_piuio_sensor_group, &p2_pad_in);
 
-  _patch_piuio_api.get_input_sys(&sys_in);
+    _patch_piuio_api.get_input_sys(&sys_in);
+  }
 
   /* PIUIO inputs are active-low. Build the complete response locally before
      publishing it to the game-owned transfer buffer in one copy. */
@@ -387,9 +527,17 @@ static void _patch_piuio_read_outputs_from_buffer(const uint8_t *bytes)
   cab_out.halo_l2 = (bytes[3] & (1 << 1)) > 0;
   cab_out.halo_l1 = (bytes[3] & (1 << 2)) > 0;
 
-  _patch_piuio_api.set_output_pad(0, &p1_pad_out);
-  _patch_piuio_api.set_output_pad(1, &p2_pad_out);
-  _patch_piuio_api.set_output_cab(&cab_out);
+  if (_patch_piuio_async) {
+    pthread_mutex_lock(&_patch_piuio_async_lock);
+    _patch_piuio_async_pad_out[0] = p1_pad_out;
+    _patch_piuio_async_pad_out[1] = p2_pad_out;
+    _patch_piuio_async_cab_out = cab_out;
+    pthread_mutex_unlock(&_patch_piuio_async_lock);
+  } else {
+    _patch_piuio_api.set_output_pad(0, &p1_pad_out);
+    _patch_piuio_api.set_output_pad(1, &p2_pad_out);
+    _patch_piuio_api.set_output_cab(&cab_out);
+  }
 }
 
 static enum ptapi_io_piuio_sensor_group

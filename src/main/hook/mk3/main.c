@@ -202,6 +202,9 @@ static void mk3hook_patch_piuio_init(struct mk3hook_options *options)
   if (options->patch.piuio.api_lib) {
     char *abs_path_iolib = util_fs_get_abs_path(options->patch.piuio.api_lib);
 
+    /* The early games don't follow the sensor cycling pattern reliably
+       (light writes interrupt input handling), decouple device polling */
+    patch_piuio_set_async_poll(true);
     patch_piuio_init(abs_path_iolib, 0);
     free(abs_path_iolib);
   }
