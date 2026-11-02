@@ -56,12 +56,12 @@ static uint32_t _patch_piuio_poll_delay_ms;
 static struct ptapi_io_piuio_api _patch_piuio_api;
 static enum ptapi_io_piuio_sensor_group _patch_piuio_sensor_group;
 
-/* The later PIUIO drivers poll at roughly 125 Hz, which matches a device
-   update every ~8 ms. Polling the cabinet much faster than that makes the
-   emulated IO appear to run at an absurdly high frame rate. Keep async device
-   refresh near the established device cadence while still honoring any longer,
-   intentionally configured hardware poll delay. */
-#define PATCH_PIUIO_ASYNC_CYCLE_DELAY_US 8000
+/* The 1st/2nd generation engines are effectively frame-driven and target about
+   60 FPS. Polling the cabinet much faster than a frame makes the emulated IO
+   appear to advance too quickly, which speeds up gameplay and pad light timing.
+   Keep the async refresh near a single-frame cadence while still honoring any
+   longer, intentionally configured hardware poll delay. */
+#define PATCH_PIUIO_ASYNC_CYCLE_DELAY_US 16667
 
 /* Async mode: the API implementation is exclusively used by the polling thread.
    The game facing side only exchanges latched state with it under the lock */
