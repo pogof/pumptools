@@ -226,6 +226,40 @@ static void test_output_mapping_and_sensor_selection(void **state)
   assert_int_equal(recv_count, 1);
 }
 
+static void test_output_state_is_cleared_between_writes(void **state)
+{
+  uint8_t first[PIUIO_DRV_BUFFER_SIZE] = {
+      0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  uint8_t second[PIUIO_DRV_BUFFER_SIZE] = {
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+  assert_int_equal(
+      control_msg(PIUIO_DRV_USB_CTRL_TYPE_OUT, first, sizeof(first)),
+      CNH_RESULT_SUCCESS);
+  assert_true(pad_outputs[0].ru);
+  assert_false(pad_outputs[0].lu);
+
+  assert_int_equal(
+      control_msg(PIUIO_DRV_USB_CTRL_TYPE_OUT, second, sizeof(second)),
+      CNH_RESULT_SUCCESS);
+
+  assert_false(pad_outputs[0].lu);
+  assert_false(pad_outputs[0].ru);
+  assert_false(pad_outputs[0].cn);
+  assert_false(pad_outputs[0].ld);
+  assert_false(pad_outputs[0].rd);
+  assert_false(pad_outputs[1].lu);
+  assert_false(pad_outputs[1].ru);
+  assert_false(pad_outputs[1].cn);
+  assert_false(pad_outputs[1].ld);
+  assert_false(pad_outputs[1].rd);
+  assert_false(cab_outputs.bass);
+  assert_false(cab_outputs.halo_r2);
+  assert_false(cab_outputs.halo_r1);
+  assert_false(cab_outputs.halo_l2);
+  assert_false(cab_outputs.halo_l1);
+}
+
 static void test_invalid_buffer_size(void **state)
 {
   uint8_t bytes[PIUIO_DRV_BUFFER_SIZE] = {0};
@@ -244,6 +278,7 @@ int main(int argc, char *argv[])
       cmocka_unit_test_setup(test_idle_input_replaces_entire_buffer, setup),
       cmocka_unit_test_setup(test_input_mapping, setup),
       cmocka_unit_test_setup(test_output_mapping_and_sensor_selection, setup),
+      cmocka_unit_test_setup(test_output_state_is_cleared_between_writes, setup),
       cmocka_unit_test_setup(test_invalid_buffer_size, setup),
   };
 

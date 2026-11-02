@@ -477,9 +477,9 @@ static void _patch_piuio_read_inputs_to_buffer(struct cnh_iobuf *buffer)
 
 static void _patch_piuio_read_outputs_from_buffer(const uint8_t *bytes)
 {
-  struct ptapi_io_piuio_pad_outputs p1_pad_out;
-  struct ptapi_io_piuio_pad_outputs p2_pad_out;
-  struct ptapi_io_piuio_cab_outputs cab_out;
+  struct ptapi_io_piuio_pad_outputs p1_pad_out = {0};
+  struct ptapi_io_piuio_pad_outputs p2_pad_out = {0};
+  struct ptapi_io_piuio_cab_outputs cab_out = {0};
 
   /*
    byte 0:
