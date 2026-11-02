@@ -36,6 +36,7 @@ static void _patch_piuio_async_start(void);
 static void _patch_piuio_async_stop(void);
 static void *_patch_piuio_async_thread(void *arg);
 static void _patch_piuio_async_cycle(void);
+static uint32_t _patch_piuio_get_async_cycle_delay_us(void);
 static void _patch_piuio_read_inputs_to_buffer(struct cnh_iobuf *buffer);
 static void _patch_piuio_read_outputs_from_buffer(const uint8_t *bytes);
 static enum ptapi_io_piuio_sensor_group
@@ -55,8 +56,12 @@ static uint32_t _patch_piuio_poll_delay_ms;
 static struct ptapi_io_piuio_api _patch_piuio_api;
 static enum ptapi_io_piuio_sensor_group _patch_piuio_sensor_group;
 
-/* Delay between two device update cycles of the async polling thread */
-#define PATCH_PIUIO_ASYNC_CYCLE_DELAY_US 500
+/* The later PIUIO drivers poll at roughly 125 Hz, which matches a device
+   update every ~8 ms. Polling the cabinet much faster than that makes the
+   emulated IO appear to run at an absurdly high frame rate. Keep async device
+   refresh near the established device cadence while still honoring any longer,
+   intentionally configured hardware poll delay. */
+#define PATCH_PIUIO_ASYNC_CYCLE_DELAY_US 8000
 
 /* Async mode: the API implementation is exclusively used by the polling thread.
    The game facing side only exchanges latched state with it under the lock */
@@ -305,7 +310,7 @@ static void *_patch_piuio_async_thread(void *arg)
   do {
     _patch_piuio_async_cycle();
 
-    usleep(PATCH_PIUIO_ASYNC_CYCLE_DELAY_US);
+    usleep(_patch_piuio_get_async_cycle_delay_us());
 
     pthread_mutex_lock(&_patch_piuio_async_lock);
     running = _patch_piuio_async_running;
@@ -313,6 +318,17 @@ static void *_patch_piuio_async_thread(void *arg)
   } while (running);
 
   return NULL;
+}
+
+static uint32_t _patch_piuio_get_async_cycle_delay_us(void)
+{
+  uint32_t configured_delay_us = _patch_piuio_poll_delay_ms * 1000U;
+
+  if (configured_delay_us > PATCH_PIUIO_ASYNC_CYCLE_DELAY_US) {
+    return configured_delay_us;
+  }
+
+  return PATCH_PIUIO_ASYNC_CYCLE_DELAY_US;
 }
 
 static void _patch_piuio_async_cycle(void)
